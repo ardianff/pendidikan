@@ -1,11 +1,11 @@
 <li class="sidebar-main-title">
     <div>
-        <h6>Madrasah</h6>
+        <h6>Master Madrasah</h6>
     </div>
 </li>
 <li class="sidebar-list">
     <i class="fa-solid fa-thumbtack"></i>
-    <a class="sidebar-link sidebar-title link-nav" href="#">
+    <a class="sidebar-link sidebar-title link-nav" href="{{ route('menu.madrasah.ra.index') }}">
         <svg class="stroke-icon">
             <use href="{{ url('assets/svg/icon-sprite.svg') }}#stroke-ui-kits"></use>
         </svg>

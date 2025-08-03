@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('master_jenjang_madrasahs', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('alias');
             $table->enum('active', [
                 true,
                 false

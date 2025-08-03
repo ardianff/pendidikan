@@ -33,8 +33,3 @@
 <script src="{{ url('assets/js/script.js') }}"></script>
 <script src="{{ url('assets/js/script1.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-{{-- <script src="{{ url('assets/js/dashboard/default.js') }}"></script>
-<script src="{{ url('assets/js/chart/apex-chart/apex-chart.js') }}"></script>
-<script src="{{ url('assets/js/clock.js') }}"></script>
-<script src="{{ url('assets/js/theme-customizer/customizer.js') }}"></script> --}}

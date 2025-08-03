@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Http\Controllers\Menu\Madrasah\RA;
+
+use App\Http\Controllers\Controller;
+use App\Models\MasterKotaKab;
+use App\Models\MasterMadrasah;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Yajra\DataTables\Facades\DataTables;
+
+class RaController extends Controller
+{
+    public function indexRa(Request $request)
+    {
+        $kabkota =  MasterKotaKab::where('kode_parent', '=', 33)->get();
+        if ($request->ajax()) {
+            $query = MasterMadrasah::with([
+                'dt_provinsi',
+                'dt_kotakab',
+                'dt_kecamatan',
+                'dt_kelurahan',
+                'dt_jenjang',
+                'dt_afiliasi'
+            ])
+                ->where('jenjang', 1)
+                ->where('active', 1);
+
+            if ($request->kab_kota && $request->kab_kota !== 'semua') {
+                $query->where('kab_kota', $request->kab_kota);
+            } elseif (Auth::user()->hasRole('kankemenag')) {
+                // untuk kankemenag, kunci ke kode_instansi mereka
+                $query->where('kab_kota', Auth::user()->kode_institusi);
+            }
+
+            // Filter Status
+            if ($request->status && $request->status !== 'semua') {
+                $query->where('status', $request->status);
+            }
+            // $data = $query->get();
+            return DataTables::of($query)
+                ->addColumn('action', function ($item) {
+                    // encrypt id
+                    $encryptedId = Crypt::encryptString($item->id);
+                    $nama    = e($item->nama);
+                    $nsm    = e($item->nsm);
+
+                    return '
+                        <ul class="action">
+                            <li class="edit">
+                                <a href="#"
+                                id="btn-edit"
+                                   data-id="' . $encryptedId . '"
+                                   data-nama="' . $nama . '"
+                                   data-value="' . $nsm . '"
+                                   >
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </a>
+                            </li>
+                            <li class="delete">
+                                <a href="#"
+                                id="btn-delete"
+
+                                   data-id="' . $encryptedId . '"
+                                   data-jenis="' . $nama . '"
+                                   data-value="' . $nsm . '"
+                                   >
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    ';
+                })
+
+                ->editColumn('id', function ($item) {
+                    return Crypt::encryptString($item->id);
+                })
+                ->rawColumns(['action', 'waktu'])
+                ->make(true);
+        }
+        return view(
+            'pages.menu.madrasah.ra.index',
+            [
+                'kabkota' => $kabkota,
+            ]
+        );
+    }
+}

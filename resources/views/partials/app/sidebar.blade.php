@@ -30,10 +30,10 @@
                      {{-- Superadmin bisa semua --}}
                      @hasanyrole('superadmin')
                          @include('partials.app.sidebar.general')
-                         @include('partials.app.sidebar.madrasah')
+                         @include('partials.app.sidebar.kelembagaan')
                          @include('partials.app.sidebar.prestasi')
+                         @include('partials.app.sidebar.madrasah')
                          @include('partials.app.sidebar.import')
-
                          @include('partials.app.sidebar.setting')
                      @endhasanyrole
 

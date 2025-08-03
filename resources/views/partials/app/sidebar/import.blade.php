@@ -4,7 +4,8 @@
     </div>
 </li>
 <li class="sidebar-list">
-    <i class="fa-solid fa-thumbtack"></i><a class="sidebar-link " href="#"><svg class="stroke-icon">
+    <i class="fa-solid fa-thumbtack"></i><a class="sidebar-link " href="{{ route('menu.import.madrasah.index') }}"><svg
+            class="stroke-icon">
             <use href="{{ url('assets/svg/icon-sprite.svg') }}#stroke-ui-kits"></use>
         </svg><svg class="fill-icon">
             <use href="{{ url('assets/svg/icon-sprite.svg') }}#fill-ui-kits"></use>
