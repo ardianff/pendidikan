@@ -26,6 +26,7 @@ class MasterMadrasah extends Model
     {
         return $this->belongsTo(MasterKecamatan::class, 'kecamatan', 'kode_kecamatan');
     }
+
     public function dt_keldesa()
     {
         return $this->belongsTo(MasterKelurahan::class, 'kelurahan', 'kode_kelurahan');

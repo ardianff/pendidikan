@@ -15,7 +15,6 @@ class ImportMadrasahController extends Controller
     {
         $jenjang = MasterJenjangMadrasah::where('active', '=', true)->select('nama', 'id', 'active')->get();
         return view('pages.menu.import.madrasah.index', [
-
             'jenjang' => $jenjang
         ]);
     }
@@ -40,7 +39,7 @@ class ImportMadrasahController extends Controller
                 'success' => false,
                 'message' => 'Terjadi kesalahan',
                 'errors' => [
-                    'Error : ' . $th->getMessage()
+                    'Error : ' . $th->getMessage() . ' ' . $th->getFile()
                 ],
             ], 500);
         }

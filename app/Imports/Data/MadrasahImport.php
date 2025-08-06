@@ -58,7 +58,7 @@ class MadrasahImport implements ToCollection, WithHeadingRow
                     try {
                         // Cek jika NSM atau NPSN sudah ada di database
                         $existingMadrasah = MasterMadrasah::where('nsm', $row['nsm'])
-                            ->orWhere('npsn', $row['npsn'])
+                            // ->orWhere('npsn', $row['npsn'])
                             ->first();
 
                         // Jika ditemukan duplikat, tandai dengan status "Duplikat"

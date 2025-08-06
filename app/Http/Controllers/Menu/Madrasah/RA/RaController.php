@@ -20,7 +20,7 @@ class RaController extends Controller
                 'dt_provinsi',
                 'dt_kotakab',
                 'dt_kecamatan',
-                'dt_kelurahan',
+                'dt_keldesa',
                 'dt_jenjang',
                 'dt_afiliasi'
             ])

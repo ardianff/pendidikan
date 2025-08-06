@@ -114,15 +114,23 @@
 @endpush
 @push('scripts')
     @include('partials.app.datatables.v2.scripts')
-    {{-- <script>
-        $('#form-import').on('submit', function(e) {
-            e.preventDefault();
-            const $form = $(this);
-            const formData = new FormData(this);
+    <script>
+        // Fungsi ucwords untuk huruf besar di setiap kata
+        function ucwords(str) {
+            return str.replace(/\b\w/g, char => char.toUpperCase());
+        }
+
+        // Fungsi AJAX reusable
+        function fetchMadrasah(formData = null) {
+            // Jika tidak dikirimkan, ambil dari form
+            if (!formData) {
+                const form = $('#form-import')[0];
+                formData = new FormData(form);
+            }
 
             $.ajax({
-                url: "{{ route('menu.import.madrasah.store') }}",
-                type: "POST",
+                url: "{{ route('menu.madrasah.ra.index') }}",
+                type: "GET",
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -136,42 +144,30 @@
                 },
                 success(response) {
                     Swal.close();
-                    $form[0].reset();
                     const rows = [];
 
                     $.each(response.data, function(index, item) {
-                        let statusBadge = '';
+                        let statusBadge = '-';
                         if (item.status === 'Berhasil') {
                             statusBadge = '<span class="badge badge-light-success">Berhasil</span>';
                         } else if (item.status === 'Gagal') {
                             statusBadge = '<span class="badge badge-light-danger">Gagal</span>';
                         } else if (item.status === 'Duplikat') {
                             statusBadge = '<span class="badge badge-light-warning">Duplikat</span>';
-                        } else {
-                            statusBadge = '-';
                         }
 
                         rows.push([
-                            index + 1, // Index + 1 for the row number
-                            item.data.nsm ? item.data.nsm :
-                            '-', // Check if nsm is null, then display '-'
-                            item.data.npsn ? item.data.npsn :
-                            '-', // Check if npsn is null, then display '-'
-                            item.data.nama_madrasah ? item.data.nama_madrasah :
-                            '-', // Check if nama is null, then display '-'
-                            item.data.jenjang ? item.data.jenjang :
-                            '-', // Check if jenjang is null, then display '-'
-                            item.data.status ? item.data.status :
-                            '-', // Check if jenjang is null, then display '-'
-                            item.data.kabupaten ? item.data.kabupaten :
-                            '-', // Check if kab_kota is null, then display '-'
-                            item.data.kecamatan ? item.data.kecamatan :
-                            '-', // Check if kecamatan is null, then display '-'
-                            item.data.afiliasi_organisasi ? item.data.afiliasi_organisasi :
-                            '-', // Check if afiliasi_organisasi is null, then display '-'
-                            statusBadge, // Check if status is null, then display '-'
-                            item.keterangan ? item.keterangan :
-                            '-', // Check if keterangan is null, then display '-'
+                            index + 1,
+                            item.data.nsm || '-',
+                            item.data.npsn || '-',
+                            item.data.nama_madrasah || '-',
+                            item.data.jenjang || '-',
+                            item.data.status ? ucwords(item.data.status) : '-',
+                            item.data.kabupaten || '-',
+                            item.data.kecamatan || '-',
+                            item.data.afiliasi_organisasi || '-',
+                            statusBadge,
+                            item.keterangan || '-',
                         ]);
                     });
 
@@ -180,7 +176,7 @@
                     }
 
                     $('#candidates-table').DataTable({
-                        data: rows, // Insert the rows into DataTable
+                        data: rows,
                         columns: [{
                                 title: "No"
                             },
@@ -200,13 +196,13 @@
                                 title: "Status"
                             },
                             {
-                                title: "Afiliasi"
-                            },
-                            {
                                 title: "Kota/Kab"
                             },
                             {
                                 title: "Kecamatan"
+                            },
+                            {
+                                title: "Afiliasi"
                             },
                             {
                                 title: "Status Upload"
@@ -218,15 +214,15 @@
                         responsive: true,
                         order: [
                             [0, 'asc']
-                        ] // Set the initial order (status first)
+                        ]
                     });
                 },
                 error(response) {
                     Swal.close();
                     if (response.responseJSON && response.responseJSON.errors) {
-                        var msg = response.responseJSON.message;
-                        var errorMessages = response.responseJSON.errors;
-                        var errorText = '';
+                        let msg = response.responseJSON.message;
+                        let errorMessages = response.responseJSON.errors;
+                        let errorText = '';
                         $.each(errorMessages, function(key, value) {
                             errorText += value + '<br>';
                         });
@@ -238,11 +234,27 @@
                             showConfirmButton: false
                         });
                     }
-                    $('#full-row').DataTable().ajax.reload(null, false)
                 }
             });
-        });
-    </script> --}}
+        }
 
+        // Submit form (Upload File)
+        $('#form-import').on('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            fetchMadrasah(formData);
+        });
+
+        // Klik tombol filter (tanpa file)
+        $('#filter-btn').on('click', function() {
+            $('#file_dokumen').val(''); // kosongkan file supaya tidak dikirim
+            fetchMadrasah(); // ambil data dari form
+        });
+
+        // Load awal saat page dibuka
+        $(document).ready(function() {
+            fetchMadrasah();
+        });
+    </script>
     @stack('scripts-modal')
 @endpush
