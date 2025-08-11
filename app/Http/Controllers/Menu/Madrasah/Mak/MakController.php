@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Menu\Madrasah\RA;
+namespace App\Http\Controllers\Menu\Madrasah\Mak;
 
 use App\Http\Controllers\Controller;
 use App\Models\MasterKotaKab;
@@ -10,20 +10,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\Facades\DataTables;
 
-class RaController extends Controller
+class MakController extends Controller
 {
-    public function indexRa(Request $request)
+    public function indexMak(Request $request)
     {
         $kabkota =  MasterKotaKab::where('kode_parent', '=', 33)->get();
 
         return view(
-            'pages.menu.madrasah.ra.index',
+            'pages.menu.madrasah.mak.index',
             [
                 'kabkota' => $kabkota,
             ]
         );
     }
-    public function dataRa(Request $request)
+    public function dataMak(Request $request)
     {
         if ($request->ajax()) {
             $query = MasterMadrasah::with([
@@ -34,7 +34,7 @@ class RaController extends Controller
                 'dt_jenjang',
                 'dt_afiliasi'
             ])
-                ->where('jenjang', 1)
+                ->where('jenjang', 5)
                 ->where('active', 1);
 
             if ($request->kab_kota && $request->kab_kota !== 'semua') {

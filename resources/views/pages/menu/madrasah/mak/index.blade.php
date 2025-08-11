@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Master Madrasah RA')
+@section('title', 'Master Madrasah MA')
 @section('content')
     <div class="page-body">
         <div class="container-fluid">
@@ -131,7 +131,7 @@
             }
 
             $.ajax({
-                url: "{{ route('menu.madrasah.ra.list') }}",
+                url: "{{ route('menu.madrasah.mak.list') }}",
                 type: "POST",
                 data: formData,
                 processData: false,

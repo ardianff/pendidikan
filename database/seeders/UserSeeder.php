@@ -44,18 +44,18 @@ class UserSeeder extends Seeder
             ])->assignRole($roleName);
         }
 
-        // // 10 user random dengan role acak, password & phone juga di-hash & unik
-        // for ($i = 0; $i < 10; $i++) {
-        //     $user = User::factory()->create([
-        //         'password' => Hash::make('secret123', [
-        //             'memory' => 1024,
-        //             'time' => 2,
-        //             'threads' => 2,
-        //             'rounds' => 12,
-        //         ]),
-        //         'phone'    => $faker->unique()->numerify('082########'),
-        //     ]);
-        //     $user->assignRole(Role::inRandomOrder()->first()->name);
-        // }
+        // 10 user random dengan role acak, password & phone juga di-hash & unik
+        for ($i = 0; $i < 10; $i++) {
+            $user = User::factory()->create([
+                'password' => Hash::make('secret123', [
+                    'memory' => 1024,
+                    'time' => 2,
+                    'threads' => 2,
+                    'rounds' => 12,
+                ]),
+                'phone'    => $faker->unique()->numerify('082########'),
+            ]);
+            $user->assignRole(Role::inRandomOrder()->first()->name);
+        }
     }
 }

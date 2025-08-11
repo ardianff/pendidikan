@@ -6,6 +6,10 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Front\HomeController as FrontHomeController;
 use App\Http\Controllers\Front\InfografisController;
 use App\Http\Controllers\Menu\Import\ImportMadrasahController;
+use App\Http\Controllers\Menu\Madrasah\Ma\MaController;
+use App\Http\Controllers\Menu\Madrasah\Mak\MakController;
+use App\Http\Controllers\Menu\Madrasah\MI\MiController;
+use App\Http\Controllers\Menu\Madrasah\MTs\MtsController;
 use App\Http\Controllers\Menu\Madrasah\RA\RaController;
 use App\Http\Controllers\Menu\Setting\{
     SettingController,
@@ -79,6 +83,65 @@ Route::middleware(['auth', 'verified'])
                 ->name('ra.')
                 ->group(function () {
                     Route::get('/',   'indexRa')->name('index');
+                    Route::post('list',   'dataRa')->name('list');
+
+
+                    Route::post('/',  'storeImportMadrasah')->name('store');
+                    Route::post('fetch', 'editMasterPegawai')->name('fetch');
+                    Route::put('/',   'updateMasterPegawai')->name('update');
+                    Route::delete('/', 'destroyMasterPegawai')->name('delete');
+                    Route::get('data',  'dataMasterPegawai')->name('data');
+                });
+            Route::controller(MiController::class)
+                ->prefix('mi')
+                ->name('mi.')
+                ->group(function () {
+                    Route::get('/',   'indexMi')->name('index');
+                    Route::post('list',   'dataMi')->name('list');
+
+
+                    Route::post('/',  'storeImportMadrasah')->name('store');
+                    Route::post('fetch', 'editMasterPegawai')->name('fetch');
+                    Route::put('/',   'updateMasterPegawai')->name('update');
+                    Route::delete('/', 'destroyMasterPegawai')->name('delete');
+                    Route::get('data',  'dataMasterPegawai')->name('data');
+                });
+            Route::controller(MtsController::class)
+                ->prefix('mts')
+                ->name('mts.')
+                ->group(function () {
+                    Route::get('/',   'indexMts')->name('index');
+                    Route::post('list',   'dataMts')->name('list');
+
+
+                    Route::post('/',  'storeImportMadrasah')->name('store');
+                    Route::post('fetch', 'editMasterPegawai')->name('fetch');
+                    Route::put('/',   'updateMasterPegawai')->name('update');
+                    Route::delete('/', 'destroyMasterPegawai')->name('delete');
+                    Route::get('data',  'dataMasterPegawai')->name('data');
+                });
+            Route::controller(MaController::class)
+                ->prefix('ma')
+                ->name('ma.')
+                ->group(function () {
+                    Route::get('/',   'indexMa')->name('index');
+                    Route::post('list',   'dataMa')->name('list');
+
+
+                    Route::post('/',  'storeImportMadrasah')->name('store');
+                    Route::post('fetch', 'editMasterPegawai')->name('fetch');
+                    Route::put('/',   'updateMasterPegawai')->name('update');
+                    Route::delete('/', 'destroyMasterPegawai')->name('delete');
+                    Route::get('data',  'dataMasterPegawai')->name('data');
+                });
+            Route::controller(MakController::class)
+                ->prefix('mak')
+                ->name('mak.')
+                ->group(function () {
+                    Route::get('/',   'indexMak')->name('index');
+                    Route::post('list',   'dataMak')->name('list');
+
+
                     Route::post('/',  'storeImportMadrasah')->name('store');
                     Route::post('fetch', 'editMasterPegawai')->name('fetch');
                     Route::put('/',   'updateMasterPegawai')->name('update');

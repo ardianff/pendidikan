@@ -6,7 +6,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3>{{ ucwords(Request::segment(2) . ' ' . Request::segment(3)) }}</h3>
+                        <h3>{{ ucwords(Request::segment(2)) . ' ' . strtoupper(Request::segment(3)) }}</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb">

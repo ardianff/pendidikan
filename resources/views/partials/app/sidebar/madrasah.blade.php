@@ -18,7 +18,7 @@
 
 <li class="sidebar-list">
     <i class="fa-solid fa-thumbtack"></i>
-    <a class="sidebar-link sidebar-title link-nav" href="#">
+    <a class="sidebar-link sidebar-title link-nav" href="{{ route('menu.madrasah.mi.index') }}">
         <svg class="stroke-icon">
             <use href="{{ url('assets/svg/icon-sprite.svg') }}#stroke-animation"></use>
         </svg>
@@ -30,7 +30,7 @@
 </li>
 <li class="sidebar-list">
     <i class="fa-solid fa-thumbtack"></i>
-    <a class="sidebar-link sidebar-title link-nav" href="#">
+    <a class="sidebar-link sidebar-title link-nav" href="{{ route('menu.madrasah.mts.index') }}">
         <svg class="stroke-icon">
             <use href="{{ url('assets/svg/icon-sprite.svg') }}#stroke-form"></use>
         </svg>
@@ -42,7 +42,7 @@
 </li>
 <li class="sidebar-list">
     <i class="fa-solid fa-thumbtack"></i>
-    <a class="sidebar-link sidebar-title link-nav" href="#">
+    <a class="sidebar-link sidebar-title link-nav" href="{{ route('menu.madrasah.ma.index') }}">
         <svg class="stroke-icon">
             <use href="{{ url('assets/svg/icon-sprite.svg') }}#stroke-icons"></use>
         </svg>
@@ -50,5 +50,17 @@
             <use href="{{ url('assets/svg/icon-sprite.svg') }}#fill-icons"></use>
         </svg>
         <span>MA</span>
+    </a>
+</li>
+<li class="sidebar-list">
+    <i class="fa-solid fa-thumbtack"></i>
+    <a class="sidebar-link sidebar-title link-nav" href="{{ route('menu.madrasah.mak.index') }}">
+        <svg class="stroke-icon">
+            <use href="{{ url('assets/svg/icon-sprite.svg') }}#stroke-icons"></use>
+        </svg>
+        <svg class="fill-icon">
+            <use href="{{ url('assets/svg/icon-sprite.svg') }}#fill-icons"></use>
+        </svg>
+        <span>MAK</span>
     </a>
 </li>
