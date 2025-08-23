@@ -6,8 +6,10 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Front\HomeController as FrontHomeController;
 use App\Http\Controllers\Front\InfografisController;
 use App\Http\Controllers\Menu\Import\ImportMadrasahController;
+use App\Http\Controllers\Menu\Kelembagaan\AdiwiyataController;
 use App\Http\Controllers\Menu\Madrasah\Ma\MaController;
 use App\Http\Controllers\Menu\Madrasah\Mak\MakController;
+use App\Http\Controllers\Menu\Madrasah\Master\MasterMadrasahController;
 use App\Http\Controllers\Menu\Madrasah\MI\MiController;
 use App\Http\Controllers\Menu\Madrasah\MTs\MtsController;
 use App\Http\Controllers\Menu\Madrasah\RA\RaController;
@@ -55,7 +57,11 @@ Route::prefix('services')
     });
 
 // Semua route /menu/* butuh autentikasi & verified
-Route::middleware(['auth', 'verified'])
+Route::middleware([
+    'auth',
+    'verified',
+    'role:superadmin|kankemenag'
+])
     ->prefix('menu')
     ->name('menu.')
     ->group(function () {
@@ -149,4 +155,40 @@ Route::middleware(['auth', 'verified'])
                     Route::get('data',  'dataMasterPegawai')->name('data');
                 });
         });
+
+
+        Route::prefix('kelembagaan')
+            ->name('kelembagaan.')
+            ->group(function () {
+                // --- Adiwiyata ---
+                Route::controller(AdiwiyataController::class)
+                    ->prefix('adiwiyata')
+                    ->name('adiwiyata.')
+                    ->group(function () {
+                        Route::get('/',   'indexAdiwiyata')->name('index');
+                        Route::post('/',  'storeMadrasahAdiwiyata')->name('store');
+                        Route::post('fetch', 'editMasterPegawai')->name('fetch');
+                        Route::put('/',   'updateMasterPegawai')->name('update');
+                        Route::delete('/', 'destroyMasterPegawai')->name('delete');
+                        Route::get('data',  'dataMadrasahAdiwiyata')->name('data');
+                    });
+            });
+    });
+Route::middleware(['auth', 'verified'])
+    ->prefix('services')
+    ->name('services.')
+    ->group(function () {
+
+        Route::middleware('role:superadmin|kankemenag')
+            ->prefix('master')
+            ->name('master.')
+            ->group(function () {
+                Route::post('madrasah', [MasterMadrasahController::class, 'cekDataMadrasah'])->name('madrasah');
+                // Route::post('provinsi', [WilayahController::class, 'provinsi'])->name('provinsi');
+                // Route::post('kotakab', [WilayahController::class, 'kotakab'])->name('kotakab');
+                // Route::post('kecamatan', [WilayahController::class, 'kecamatan'])->name('kecamatan');
+                // Route::post('kelurahan', [WilayahController::class, 'kelurahan'])->name('kelurahan');
+
+
+            });
     });

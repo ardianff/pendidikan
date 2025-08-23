@@ -18,7 +18,7 @@
 
 <li class="sidebar-list">
     <i class="fa-solid fa-thumbtack"></i>
-    <a class="sidebar-link sidebar-title link-nav" href="#">
+    <a class="sidebar-link sidebar-title link-nav" href="{{ route('menu.kelembagaan.adiwiyata.index') }}">
         <svg class="stroke-icon">
             <use href="{{ url('assets/svg/icon-sprite.svg') }}#stroke-animation"></use>
         </svg>
